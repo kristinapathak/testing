@@ -36,7 +36,10 @@ fi
 
 ###############################################################
 
+mkdir -p ${GOPATH}/bin
 go version; echo; echo
+curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+dep ensure
 #?#ORIGIN=$(pwd)
 TARGETS=${TARGETS:-linux/amd64 darwin/amd64}
 ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )

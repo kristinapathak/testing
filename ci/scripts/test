@@ -8,5 +8,7 @@ cd ${GOPATH}/src/${MODULE}
 
 
 go version; echo; echo
+curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+dep ensure
 go vet $(go list ./... | grep -v vendor)
 go test -v ./...

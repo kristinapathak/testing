@@ -39,7 +39,6 @@ fi
 mkdir -p ${GOPATH}/bin
 go version; echo; echo
 curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-dep ensure
 #?#ORIGIN=$(pwd)
 TARGETS=${TARGETS:-linux/amd64 darwin/amd64}
 ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )
@@ -64,6 +63,7 @@ fi
 
 pushd $REPO_ROOT
 mkdir artifacts
+dep ensure
 gox -osarch="${TARGETS}" --output="artifacts/${BINARY}-{{.OS}}-{{.Arch}}" -ldflags="-X main.Version=${VERSION}" ./...
 go build -o "${BINARY}" -ldflags="-X main.Version=${VERSION}" ${CMD_PKG:-.}
 ./${BINARY} -v

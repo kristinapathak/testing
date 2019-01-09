@@ -37,5 +37,6 @@ deploy:
   api_key: "$AUTH_TOKEN_BUILD"
   file:
     - dist/testing_linux_amd64
+  skip_cleanup: true
   on:
     condition: "$TRAVIS_PULL_REQUEST = false"

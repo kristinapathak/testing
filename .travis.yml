@@ -24,6 +24,7 @@ before_script:
 
 script:
   - go test -v -race $(go list ./... | grep -v "/vendor/")
+  - go get github.com/haya14busa/goverage
   - goverage -coverprofile=coverage.txt ./...
 
 after_success:

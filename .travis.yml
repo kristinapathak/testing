@@ -23,6 +23,9 @@ script:
   - go get github.com/mitchellh/gox
   - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
 
+after_success:
+  - TRAVIS_TAG=`cat version.txt`
+
 deploy:
   provider: releases
   prerelease: true

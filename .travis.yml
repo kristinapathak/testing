@@ -7,6 +7,10 @@ install:
   - go get -u github.com/golang/dep/...
   - dep ensure
 
+branches:
+  only:
+    - master
+
 before_script:
   - echo $TRAVIS
   - echo $TRAVIS_PULL_REQUEST

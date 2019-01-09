@@ -1,0 +1,35 @@
+language: go
+
+go:
+  - "1.11.x"
+  - master
+
+install:
+  - go get -u github.com/golang/dep/...
+  - dep ensure
+
+before_script:
+  - echo $TRAVIS
+  - echo $TRAVIS_PULL_REQUEST
+  - echo $TRAVIS_PULL_REQUEST_BRANCH
+  - echo $TRAVIS_COMMIT
+  - echo $TRAVIS_PULL_REQUEST_SHA
+  - echo $TRAVIS_REPO_SLUG
+  - echo $TRAVIS_SECURE_ENV_VARS
+
+
+script:
+  - go test -v -race $(go list ./... | grep -v "/vendor/")
+  - zip -r source.zip . && mkdir dist && mv source.zip dist
+  - go get github.com/mitchellh/gox
+  - gox -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
+
+deploy:
+  provider: releases
+  prerelease: true
+  overwrite: true
+  api_key: "$AUTH_TOKEN_BUILD"
+  file:
+    - dist/testing_linux_amd64
+  on:
+    condition: "$TRAVIS_PULL_REQUEST = false"

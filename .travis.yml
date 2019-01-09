@@ -22,7 +22,7 @@ script:
   - go test -v -race $(go list ./... | grep -v "/vendor/")
   - zip -r source.zip . && mkdir dist && mv source.zip dist
   - go get github.com/mitchellh/gox
-  - gox -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
+  - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
 
 deploy:
   provider: releases

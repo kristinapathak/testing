@@ -19,15 +19,20 @@ before_script:
   - echo $TRAVIS_PULL_REQUEST_SHA
   - echo $TRAVIS_REPO_SLUG
   - echo $TRAVIS_SECURE_ENV_VARS
+  - TRAVIS_TAG=`cat version.txt`-rc.$TRAVIS_BUILD_NUMBER
 
 
 script:
   - go test -v -race $(go list ./... | grep -v "/vendor/")
-  - go get github.com/mitchellh/gox
-  - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
+  - goverage -coverprofile=coverage.txt ./...
 
 after_success:
+  -  bash <(curl -s https://codecov.io/bash)
   - TRAVIS_TAG=`cat version.txt`-rc.$TRAVIS_BUILD_NUMBER
+
+before_deploy:
+  - go get github.com/mitchellh/gox
+  - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
 
 deploy:
   provider: releases

@@ -11,6 +11,9 @@ branches:
   only:
     - master
 
+before_install:
+  - LAST_BUILD=`cat version.txt`
+
 before_script:
   - echo $TRAVIS
   - echo $TRAVIS_PULL_REQUEST
@@ -19,7 +22,7 @@ before_script:
   - echo $TRAVIS_PULL_REQUEST_SHA
   - echo $TRAVIS_REPO_SLUG
   - echo $TRAVIS_SECURE_ENV_VARS
-  - TRAVIS_TAG=`cat version.txt`-rc.$TRAVIS_BUILD_NUMBER
+  - TRAVIS_TAG=`./ci/scripts/rc_bump.sh $LAST_BUILD`
 
 
 script:
@@ -34,6 +37,10 @@ after_success:
 before_deploy:
   - go get github.com/mitchellh/gox
   - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git commit --message "[skip travis] Travis build: $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
+  - git push
 
 deploy:
   provider: releases
@@ -42,6 +49,7 @@ deploy:
   api_key: "$AUTH_TOKEN_BUILD"
   file:
     - dist/testing_linux_amd64
-  skip_cleanup: true
+  name: prerelease
   on:
+    all_branches: true
     condition: "$TRAVIS_PULL_REQUEST = false"

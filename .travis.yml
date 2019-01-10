@@ -22,7 +22,7 @@ before_script:
   - echo $TRAVIS_PULL_REQUEST_SHA
   - echo $TRAVIS_REPO_SLUG
   - echo $TRAVIS_SECURE_ENV_VARS
-  - TRAVIS_TAG=`./ci/scripts/rc_bump.sh $LAST_BUILD`
+  - TRAVIS_TAG=`./github.com/kcajmagic/testing/ci/scripts/rc_bump.sh $LAST_BUILD`
 
 
 script:

@@ -36,10 +36,11 @@ before_deploy:
   - go get github.com/mitchellh/gox
   - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
   - echo $TRAVIS_TAG > version.txt
-#  - git config --global user.email "travis@travis-ci.org"
-#  - git config --global user.name "Travis CI"
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git remote add origin-version https://${GH_TOKEN}@github.com/kcajmagic/testing.git > /dev/null 2>&1
   - git commit -am "[skip travis] Travis build $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
-  - git push origin master
+  - git push origin-version master
 
 deploy:
   provider: releases

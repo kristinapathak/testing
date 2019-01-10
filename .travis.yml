@@ -37,7 +37,7 @@ before_deploy:
   - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
-  - git commit --message "[skip travis] Travis build: $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
+  - git commit --message "[skip travis] Travis build $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
   - git push
 
 deploy:

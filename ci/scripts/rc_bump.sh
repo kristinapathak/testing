@@ -69,7 +69,7 @@ function command-bump {
   local prere="${parts[3]}"
   local build="${parts[4]}"
 
-  if [[ "$prere" =~ \-rc\.(0|[1-9][0-9]*) ]]; then
+  if [[ "$prere" =~ \-rc\.(0|[1-9][0-9]*)$ ]]; then
     if [[ "$#" -eq "1" ]]; then
       local update=$((BASH_REMATCH[1]+1))
       new=$(validate-version "${major}.${minor}.${patch}-rc.${update}")
@@ -77,6 +77,8 @@ function command-bump {
       echo "$version"
     fi
   elif [[ !(-z $prere) || !(-z $build) ]]; then
+    error "don't know how to upgrade ($prere) or ($build)"
+  else
     new=$(validate-version "${major}.${minor}.${patch}-rc.0")
   fi
 

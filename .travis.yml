@@ -30,7 +30,6 @@ script:
 
 after_success:
   -  bash <(curl -s https://codecov.io/bash)
-  - TRAVIS_TAG=`cat version.txt`-rc.$TRAVIS_BUILD_NUMBER
 
 before_deploy:
   - go get github.com/mitchellh/gox

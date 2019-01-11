@@ -43,7 +43,7 @@ before_deploy:
   - git commit -am "[skip travis] Travis build $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
   - git push origin-version master
   - git tag $TRAVIS_TAG
-  - git push origin-version --tag
+  - git push origin-version $TRAVIS_TAG
 
 deploy:
   provider: releases

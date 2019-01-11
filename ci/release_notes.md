@@ -1,3 +1,0 @@
-- competed .travis.yml script
-  - create rc_bump file
-- awesome

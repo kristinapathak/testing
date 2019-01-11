@@ -35,7 +35,7 @@ after_success:
 before_deploy:
   - go get github.com/mitchellh/gox
   - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
-  - echo $TRAVIS_TAG > version.txt
+  - echo $TRAVIS_TAG > github.com/kcajmagic/version.txt
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
   - git remote add origin-version https://${GH_TOKEN}@github.com/kcajmagic/testing.git > /dev/null 2>&1
@@ -50,7 +50,7 @@ deploy:
   file:
     - dist/testing_linux_amd64
   name: CI Build
-  body: "$TRAVIS_TAG $TRAVIS_COMMIT_MESSAGE"
+  body: "Build $TRAVIS_TAG \n\n$TRAVIS_COMMIT_MESSAGE"
   on:
     all_branches: true
     condition: "$TRAVIS_PULL_REQUEST = false"

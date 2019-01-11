@@ -3,6 +3,9 @@ language: go
 go:
   - "1.11.x"
 
+services:
+  - docker
+
 install:
   - go get -u github.com/golang/dep/...
   - dep ensure
@@ -22,6 +25,13 @@ before_script:
   - LAST_BUILD=`cat version.txt`
   - TRAVIS_TAG=`ci/scripts/rc_bump.sh $LAST_BUILD`
 
+jobs:
+  include:
+    - stage: hi
+      script:
+        - echo "hi"
+    - stage: neat
+        - docker pull schmidtw/webpa.builder.centos6
 
 script:
   - go test -v -race $(go list ./... | grep -v "/vendor/")

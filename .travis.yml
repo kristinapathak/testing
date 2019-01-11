@@ -35,7 +35,8 @@ after_success:
 before_deploy:
   - go get github.com/mitchellh/gox
   - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
-  - echo $TRAVIS_TAG > github.com/kcajmagic/version.txt
+  - echo $TRAVIS_TAG
+  - echo $TRAVIS_TAG > version.txt
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
   - git remote add origin-version https://${GH_TOKEN}@github.com/kcajmagic/testing.git > /dev/null 2>&1

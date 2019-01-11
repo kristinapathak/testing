@@ -42,6 +42,8 @@ before_deploy:
   - git remote add origin-version https://${GH_TOKEN}@github.com/kcajmagic/testing.git > /dev/null 2>&1
   - git commit -am "[skip travis] Travis build $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
   - git push origin-version master
+  - git tag $TRAVIS_TAG
+  - git push --tag
 
 deploy:
   provider: releases

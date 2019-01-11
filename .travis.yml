@@ -47,7 +47,7 @@ deploy:
   provider: releases
   prerelease: true
   overwrite: true
-  target_commitish: $TRAVIS_COMMIT
+  tag_name: ci_build
   api_key: "$AUTH_TOKEN_BUILD"
   file:
     - dist/testing_linux_amd64

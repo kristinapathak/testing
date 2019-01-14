@@ -27,11 +27,12 @@ before_script:
 
 jobs:
   include:
-    - stage: hi
+    - stage: docker
       script:
-        - echo "hi"
-    - stage: neat
-        - docker pull schmidtw/webpa.builder.centos6
+        - docker build -t test:local .
+        - docker run -d -p 8080:8080 test:local
+        - docker ps -a
+        - curl localhost:8080
 
 script:
   - go test -v -race $(go list ./... | grep -v "/vendor/")
@@ -41,30 +42,4 @@ script:
 after_success:
   -  bash <(curl -s https://codecov.io/bash)
 
-before_deploy:
-  - go get github.com/mitchellh/gox
-  - gox -osarch "linux/amd64" -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" github.com/kcajmagic/testing
-  - echo $TRAVIS_TAG
-  - git checkout master
-  - echo $TRAVIS_TAG > version.txt
-  - git config --global user.email "travis@travis-ci.org"
-  - git config --global user.name "Travis CI"
-  - git remote add origin-version https://${GH_TOKEN}@github.com/kcajmagic/testing.git > /dev/null 2>&1
-  - git commit -am "[skip travis] Travis build $TRAVIS_BUILD_NUMBER update version to $TRAVIS_TAG"
-  - git push origin-version master
-  - git tag $TRAVIS_TAG
-  - git push origin-version $TRAVIS_TAG
 
-deploy:
-  provider: releases
-  prerelease: true
-  overwrite: true
-  tag_name: ci_build
-  api_key: "$AUTH_TOKEN_BUILD"
-  file:
-    - dist/testing_linux_amd64
-  name: CI Build
-  body: "Build $TRAVIS_TAG - $TRAVIS_COMMIT_MESSAGE"
-  skip_cleanup: true
-  on:
-    condition: "$TRAVIS_PULL_REQUEST = false"

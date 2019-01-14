@@ -1,7 +1,12 @@
 language: go
 
 go:
-  - "1.11.x"
+  - 1.11.x
+  - tip
+
+os:
+  - linux
+  - osx
 
 services:
   - docker
@@ -25,15 +30,6 @@ before_script:
   - LAST_BUILD=`cat version.txt`
   - TRAVIS_TAG=`ci/scripts/rc_bump.sh $LAST_BUILD`
 
-jobs:
-  include:
-    - stage: docker
-      script:
-        - docker build -t test:local .
-        - docker run -d -p 8080:8080 test:local
-        - docker ps -a
-        - curl localhost:8080
-
 script:
   - go test -v -race $(go list ./... | grep -v "/vendor/")
   - go get github.com/haya14busa/goverage
@@ -42,4 +38,13 @@ script:
 after_success:
   -  bash <(curl -s https://codecov.io/bash)
 
+
+jobs:
+  include:
+    - stage: docker
+      script:
+        - docker build -t test:local .
+        - docker run -d -p 8080:8080 test:local
+        - docker ps -a
+        - curl localhost:8080
 

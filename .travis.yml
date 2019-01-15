@@ -40,9 +40,13 @@ script:
 jobs:
   include:
     - stage: docker
+      name: "Smoke Tests"
       script:
         - docker build -t test:local .
         - docker run -d -p 8080:8080 test:local
         - docker ps -a
         - curl localhost:8080
+        - docker --version
+        - docker-compose --version
+        - docker swarm init
 

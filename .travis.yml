@@ -11,10 +11,6 @@ os:
 services:
   - docker
 
-install:
-  - go get -u github.com/golang/dep/...
-  - dep ensure
-
 branches:
   only:
     - master
@@ -31,22 +27,12 @@ before_script:
   - TRAVIS_TAG=`ci/scripts/rc_bump.sh $LAST_BUILD`
 
 script:
-  - go test -v -race $(go list ./... | grep -v "/vendor/")
-  - go get github.com/haya14busa/goverage
-  - goverage -coverprofile=coverage.txt ./...
-  - bash <(curl -s https://codecov.io/bash)
-
+  - make style codecov
 
 jobs:
   include:
-    - stage: docker
-      name: "Smoke Tests"
+    - stage: integration
+      name: "Integration Tests"
       script:
-        - docker build -t test:local .
-        - docker run -d -p 8080:8080 test:local
-        - docker ps -a
-        - curl localhost:8080
-        - docker --version
-        - docker-compose --version
-        - docker swarm init
+        - make it
 

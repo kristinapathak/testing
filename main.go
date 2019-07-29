@@ -14,7 +14,7 @@ func application(arguments []string) int {
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(200)
-		writer.Write([]byte("Hello"))
+		writer.Write([]byte("Hi"))
 	})
 
 	http.ListenAndServe(":8080", router)

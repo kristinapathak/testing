@@ -9,7 +9,7 @@ import (
 
 func application(arguments []string) int {
 
-	fmt.Println("Starting Application!")
+	fmt.Println("Starting Application!!")
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {

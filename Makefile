@@ -29,8 +29,8 @@ rpm:
 	cp NOTICE ./.ignore/SOURCES/
 	cp CHANGELOG.md ./.ignore/SOURCES/
 	rpmbuild --define "_topdir $(CURDIR)/.ignore" \
-    		--define '_version $(RPM_VERSION)' \
-    		--define '_release $(RPM_RELEASE)' \
+    		--define "_version $(RPM_VERSION)" \
+    		--define "_release $(RPM_RELEASE)" \
     		-ba deploy/packaging/testing.spec
 
 .PHONY: rpm-version

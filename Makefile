@@ -27,8 +27,8 @@ rpm:
 	cp NOTICE ./.ignore/sources/
 	cp CHANGELOG.md ./.ignore/sources/
 	rpmbuild --define "_topdir $(CURDIR)/.ignore" \
-    		--define "_version $(PROGVER)" \
-    		--define "_release 1" \
+    		--define '_version $(PROGVER)' \
+    		--define '_release 1' \
     		-ba deploy/packaging/testing.spec
 
 .PHONY: version

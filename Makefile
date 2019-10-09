@@ -2,28 +2,25 @@ DEFAULT: build
 
 GO           ?= go
 GOFMT        ?= $(GO)fmt
+APP          := testing
 FIRST_GOPATH := $(firstword $(subst :, ,$(shell $(GO) env GOPATH)))
-DEP          := $(FIRST_GOPATH)/bin/dep
-TESTING    := $(FIRST_GOPATH)/bin/testing
+BINARY    := $(FIRST_GOPATH)/bin/$(APP)
 
-PROGVER = $(shell grep 'applicationVersion.*= ' main.go | awk '{print $$3}' | sed -e 's/\"//g')
+PROGVER = $(shell git describe --tags `git rev-list --tags --max-count=1` | tail -1 | sed 's/v\(.*\)/\1/')
+BUILDTIME = $(shell date -u '+%Y-%m-%d %H:%M:%S')
+GITCOMMIT = $(shell git rev-parse --short HEAD)
 
-.PHONY: $(DEP)
-$(DEP):
-	GOOS= GOARCH= $(GO) get -u github.com/golang/dep/...
-
-.PHONY: deps
-deps: $(DEP)
-	$(DEP) ensure
+.PHONY: go-mod-vendor
+go-mod-vendor:
+	GO111MODULE=on $(GO) mod vendor
 
 .PHONY: build
-build: deps
-	$(GO) build
+build: go-mod-vendor
+	$(GO) build -o $(APP) -ldflags "-X 'main.BuildTime=$(BUILDTIME)' -X main.GitCommit=$(GITCOMMIT) -X main.Version=$(PROGVER)"
 
 .PHONY: version
 version:
 	@echo $(PROGVER)
-
 
 # If the first argument is "update-version"...
 ifeq (update-version,$(firstword $(MAKECMDGOALS)))
@@ -36,38 +33,38 @@ endif
 .PHONY: update-version
 update-version:
 	@echo "Update Version $(PROGVER) to $(RUN_ARGS)"
-	sed -i "s/$(PROGVER)/$(RUN_ARGS)/g" main.go
+	git tag v$(RUN_ARGS)
 
 
 .PHONY: install
-install: deps
-	echo go build -o $(TESTING) $(PROGVER)
+install: go-mod-vendor
+	$(GO) install -ldflags "-X 'main.BuildTime=$(BUILDTIME)' -X main.GitCommit=$(GITCOMMIT) -X main.Version=$(PROGVER)"
 
 .PHONY: release-artifacts
-release-artifacts:
-	GOOS=darwin GOARCH=amd64 go build -o ./OPATH/testing-$(PROGVER).darwin-amd64 && gzip -f ./OPATH/testing-$(PROGVER).darwin-amd64
-	GOOS=linux  GOARCH=amd64 go build -o ./OPATH/testing-$(PROGVER).linux-amd64  && gzip -f ./OPATH/testing-$(PROGVER).linux-amd64
+release-artifacts: go-mod-vendor
+	mkdir -p ./.ignore
+	GOOS=darwin GOARCH=amd64 $(GO) build -o ./.ignore/$(APP)-$(PROGVER).darwin-amd64 -ldflags "-X 'main.BuildTime=$(BUILDTIME)' -X main.GitCommit=$(GITCOMMIT) -X main.Version=$(PROGVER)"
+	GOOS=linux  GOARCH=amd64 $(GO) build -o ./.ignore/$(APP)-$(PROGVER).linux-amd64 -ldflags "-X 'main.BuildTime=$(BUILDTIME)' -X main.GitCommit=$(GITCOMMIT) -X main.Version=$(PROGVER)"
 
 .PHONY: docker
 docker:
-	docker build -f ./deploy/Dockerfile -t testing:$(PROGVER) .
-
-# build docker without running dep ensure
-.PHONY: local-docker
-local-docker:
-	docker build -f ./deploy/Dockerfile.local -t testing:local .
+	docker build \
+		--build-arg VERSION=$(PROGVER) \
+		--build-arg GITCOMMIT=$(GITCOMMIT) \
+		--build-arg BUILDTIME='$(BUILDTIME)' \
+		-f ./deploy/Dockerfile -t $(APP):$(PROGVER) .
 
 .PHONY: style
 style:
-	! gofmt -d $$(find . -path ./vendor -prune -o -name '*.go' -print) | grep '^'
+	! $(GOFMT) -d $$(find . -path ./vendor -prune -o -name '*.go' -print) | grep '^'
 
 .PHONY: test
-test: deps
-	go test -o $(TESTING) -v -race  -coverprofile=cover.out $(go list ./... | grep -v "/vendor/")
+test: go-mod-vendor
+	GO111MODULE=on $(GO) test -v -race  -coverprofile=cover.out ./...
 
 .PHONY: test-cover
 test-cover: test
-	go tool cover -html=cover.out
+	$(GO) tool cover -html=cover.out
 
 .PHONY: codecov
 codecov: test
@@ -79,4 +76,4 @@ it:
 
 .PHONY: clean
 clean:
-	rm -rf ./codex-testing ./OPATH ./coverage.txt ./vendor
+	rm -rf ./$(APP) ./OPATH ./coverage.txt ./vendor

@@ -7,6 +7,8 @@ FIRST_GOPATH := $(firstword $(subst :, ,$(shell $(GO) env GOPATH)))
 BINARY    := $(FIRST_GOPATH)/bin/$(APP)
 
 PROGVER = $(shell git describe --tags `git rev-list --tags --max-count=1` | tail -1 | sed 's/v\(.*\)/\1/')
+RPM_VERSION=$(shell echo $(PROGVER) | sed 's/\(.*\)-\(.*\)/\1/')
+RPM_RELEASE=$(shell echo $(PROGVER) | sed 's/\(.*\)-\(.*\)/\2/')
 BUILDTIME = $(shell date -u '+%Y-%m-%d %H:%M:%S')
 GITCOMMIT = $(shell git rev-parse --short HEAD)
 
@@ -19,17 +21,26 @@ build: go-mod-vendor
 	$(GO) build -o $(APP) -ldflags "-X 'main.BuildTime=$(BUILDTIME)' -X main.GitCommit=$(GITCOMMIT) -X main.Version=$(PROGVER)"
 
 rpm:
-	mkdir -p ./.ignore/sources
-	tar -czvf ./.ignore/sources/testing-$(PROGVER).tar.gz . --exclude ./.git --exclude ./OPATH --exclude ./conf --exclude ./deploy --exclude ./vendor
-	cp conf/testing.service ./.ignore/sources/
-	cp conf/testing.yaml  ./.ignore/sources/
-	cp LICENSE ./.ignore/sources/
-	cp NOTICE ./.ignore/sources/
-	cp CHANGELOG.md ./.ignore/sources/
+	mkdir -p ./.ignore/SOURCES
+	tar -czvf ./.ignore/SOURCES/testing-$(PROGVER).tar.gz . --exclude ./.git --exclude ./OPATH --exclude ./conf --exclude ./deploy --exclude ./vendor
+	cp conf/testing.service ./.ignore/SOURCES/
+	cp conf/testing.yaml  ./.ignore/SOURCES/
+	cp LICENSE ./.ignore/SOURCES/
+	cp NOTICE ./.ignore/SOURCES/
+	cp CHANGELOG.md ./.ignore/SOURCES/
 	rpmbuild --define "_topdir $(CURDIR)/.ignore" \
-    		--define '_version $(PROGVER)' \
-    		--define '_release 1' \
+    		--define '_version $(RPM_VERSION)' \
+    		--define '_release $(RPM_RELEASE)' \
     		-ba deploy/packaging/testing.spec
+
+.PHONY: rpm-version
+rpm-version:
+	@echo $(RPM_VERSION)
+
+.PHONY: rpm-version
+rpm-release:
+	@echo $(RPM_RELEASE)
+
 
 .PHONY: version
 version:

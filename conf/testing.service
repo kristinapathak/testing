@@ -1,0 +1,18 @@
+# -*- mode: conf -*-
+
+[Unit]
+Description=Testing Ignore me.
+Documentation=https://github.com/kcajmagic/testing
+After=network.target
+
+[Service]
+EnvironmentFile=-/etc/default/testing
+User=testing
+ExecStart=/usr/bin/testing \
+          $testing_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target

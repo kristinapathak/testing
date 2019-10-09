@@ -18,6 +18,19 @@ go-mod-vendor:
 build: go-mod-vendor
 	$(GO) build -o $(APP) -ldflags "-X 'main.BuildTime=$(BUILDTIME)' -X main.GitCommit=$(GITCOMMIT) -X main.Version=$(PROGVER)"
 
+rpm:
+	mkdir -p ./.ignore/sources
+	tar -czvf ./.ignore/sources/testing-$(PROGVER).tar.gz . --exclude ./.git --exclude ./OPATH --exclude ./conf --exclude ./deploy --exclude ./vendor
+	cp conf/testing.service ./.ignore/sources/
+	cp conf/testing.yaml  ./.ignore/sources/
+	cp LICENSE ./.ignore/sources/
+	cp NOTICE ./.ignore/sources/
+	cp CHANGELOG.md ./.ignore/sources/
+	rpmbuild --define "_topdir $(CURDIR)/.ignore" \
+    		--define "_version $(PROGVER)" \
+    		--define "_release 1" \
+    		-ba deploy/packaging/testing.spec
+
 .PHONY: version
 version:
 	@echo $(PROGVER)

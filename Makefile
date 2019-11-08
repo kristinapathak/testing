@@ -76,7 +76,7 @@ docker:
 		--build-arg VERSION=$(PROGVER) \
 		--build-arg GITCOMMIT=$(GITCOMMIT) \
 		--build-arg BUILDTIME='$(BUILDTIME)' \
-		-f ./deploy/Dockerfile -t $(APP):$(PROGVER) .
+		-f ./deploy/Dockerfile -t kcajmagic/$(APP):$(PROGVER) .
 
 .PHONY: style
 style:

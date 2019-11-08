@@ -28,3 +28,17 @@ jobs:
       name: "Integration Tests"
       script:
         - make it
+
+
+before_deploy:
+  # Set up git user name and tag this commit
+  - make rpm
+
+deploy:
+  on:
+    all_branches: true
+    condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*
+  provider: releases
+  api_key: "$GH_TOKEN"
+  file: ./ignore/RPMS/*
+  skip_cleanup: true

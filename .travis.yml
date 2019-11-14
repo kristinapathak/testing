@@ -22,7 +22,12 @@ branches:
 
 script:
   - make style codecov
-
+  - export OLD_VERSION=$(make version)
+  - git config --local user.name "xmidt-su"
+  - git config --local user.email "chqsv-webpa@comcast.com"
+  - export TRAVIS_TAG=$(cat ../CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
+  - export RELEASE_BODY=$(cat ../CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
+  - if [[ $TRAVIS_TAG != "" && $TRAVIS_TAG != $OLD_VERSION ]]; then git tag $TRAVIS_TAG; fi
 jobs:
   include:
     - stage: integration
@@ -30,15 +35,16 @@ jobs:
       script:
         - make it
     - stage: deploy
+      # if: type = push
       script: skip
       before_deploy:
         - make release-artifacts
       deploy:
         on:
-          tags: true
           all_branches: true
-          condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*
+          condition: $TRAVIS_TAG != "" && $TRAVIS_TAG != $OLD_VERSION
         provider: releases
         api_key: "$GH_TOKEN"
         file: ./ignore/*
+        release_notes: ${RELEASE_BODY}
         skip_cleanup: true

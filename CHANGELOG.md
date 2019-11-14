@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.0]
+- blah
+- changed travis ci a lot
+
 ## [v0.3.3]
 - looking good
 - docker testing
-
-
 
 ## [v0.3.1]
 - cool
@@ -19,15 +21,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - neat
 - hmm
 
-
-
 ## [v0.1.6]
 - fun
 
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/kcajmagic/testing/compare/v0.3.3...v0.4.0
 [v0.3.3]: https://github.com/kcajmagic/testing/compare/v0.3.3-rc.1...v0.3.3
 [v0.3.1]: https://github.com/kcajmagic/testing/compare/v0.3.1-rc.4...v0.3.1
 [v0.1.6]: https://github.com/kcajmagic/testing/compare/v0.1.5...v0.1.5

@@ -27,7 +27,7 @@ script:
   - git config --local user.email "chqsv-webpa@comcast.com"
   - export TRAVIS_TAG=$(cat ../CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
   - export RELEASE_BODY=$(cat ../CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
-  - if [[ $TRAVIS_TAG != "" && $TRAVIS_TAG != $OLD_VERSION ]]; then git tag $TRAVIS_TAG; fi
+  - if [[ "$TRAVIS_TAG" != "" && "$TRAVIS_TAG" != "$OLD_VERSION" ]]; then git tag "$TRAVIS_TAG"; fi
 jobs:
   include:
     - stage: integration
@@ -42,9 +42,9 @@ jobs:
       deploy:
         on:
           all_branches: true
-          condition: $TRAVIS_TAG != "" && $TRAVIS_TAG != $OLD_VERSION
+          condition: "$TRAVIS_TAG" != "" && "$TRAVIS_TAG" != "$OLD_VERSION"
         provider: releases
         api_key: "$GH_TOKEN"
         file: ./ignore/*
-        release_notes: ${RELEASE_BODY}
+        release_notes: "$RELEASE_BODY"
         skip_cleanup: true

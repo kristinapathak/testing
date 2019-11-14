@@ -42,7 +42,7 @@ jobs:
       deploy:
         on:
           all_branches: true
-          condition: "$TRAVIS_TAG" != "" && "$TRAVIS_TAG" != "$OLD_VERSION"
+          condition: "$TRAVIS_TAG" != "" AND "$TRAVIS_TAG" != "$OLD_VERSION"
         provider: releases
         api_key: "$GH_TOKEN"
         file: ./ignore/*

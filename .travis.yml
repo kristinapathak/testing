@@ -32,8 +32,8 @@ jobs:
       name: "Tag For Release"
       script:
         - export OLD_VERSION=$(make version)
-        - git config --local user.name "kcajmagic"
-        - git config --local user.email "jackrmurdock@gmail.com"
+        - git config --global user.name "kcajmagic"
+        - git config --global user.email "jackrmurdock@gmail.com"
         - export TAG=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
         - echo "$TAG"
         - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag "$TAG"; git push origin "$TAG"; echo $?; fi

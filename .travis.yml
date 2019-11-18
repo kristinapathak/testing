@@ -40,7 +40,7 @@ jobs:
         - export NOTES=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
         - echo "$TAG"
         - echo "$NOTES"
-        - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag -a "$TAG" -m "$NOTES"; git push origin "$TAG"; echo $?; fi
+        - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag -a "$TAG" -m "\n\n$NOTES"; git push origin "$TAG"; echo $?; fi
     - stage: release
       name: "Make a Release"
       script: skip

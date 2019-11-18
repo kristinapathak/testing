@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.2]
+- updated tag to include release notes information
+- not sure about markdown in the tag message
+
 ## [v0.4.1]
 - updated deploy release_notes_file
 - need multiple lines
@@ -31,7 +35,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.2...HEAD
+[v0.4.2]: https://github.com/kcajmagic/testing/compare/v0.4.1...v0.4.2
 [v0.4.1]: https://github.com/kcajmagic/testing/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/kcajmagic/testing/compare/v0.3.3...v0.4.0
 [v0.3.3]: https://github.com/kcajmagic/testing/compare/v0.3.3-rc.1...v0.3.3

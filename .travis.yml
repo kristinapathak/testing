@@ -37,20 +37,19 @@ jobs:
         - git config --global user.name "kcajmagic"
         - git config --global user.email "jackrmurdock@gmail.com"
         - export TAG=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
+        - export NOTES=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
         - echo "$TAG"
-        - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag "$TAG"; git push origin "$TAG"; echo $?; fi
+        - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag -a "$TAG" -m "$NOTES"; git push origin "$TAG"; echo $?; fi
     - stage: release
       name: "Make a Release"
       script: skip
       before_deploy:
         - make release-artifacts
-        - cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s' > release_body.md
       deploy:
         on:
           all_branches: true
           tags: true
         provider: releases
         api_key: "$GH_TOKEN"
-        file: ./ignore/*
-        release_notes_file: release_body.md
+        file: ./.ignore/*
         skip_cleanup: true

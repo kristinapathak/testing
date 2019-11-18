@@ -37,7 +37,7 @@ jobs:
         - git config --global user.name "kcajmagic"
         - git config --global user.email "jackrmurdock@gmail.com"
         - export TAG=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
-        - export NOTES=$(cat CHANGELOG.md | perl -0777 -ne 'print "\n\n$1\n" if /.*## \[$ENV{TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
+        - export NOTES=$(cat CHANGELOG.md | perl -0777 -ne 'print "release \n\n$1\n" if /.*## \[$ENV{TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
         - echo "$TAG"
         - echo "$NOTES"
         - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag -a "$TAG" -m "$NOTES"; git push origin "$TAG"; echo $?; fi

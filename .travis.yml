@@ -44,7 +44,7 @@ jobs:
       script: skip
       before_deploy:
         - make release-artifacts
-        - "$(cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')"" > release_body.md
+        - "$(cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')" > release_body.md
       deploy:
         on:
           all_branches: true

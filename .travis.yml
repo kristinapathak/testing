@@ -44,7 +44,7 @@ jobs:
       script: skip
       before_deploy:
         - make release-artifacts
-        - export RELEASE_BODY=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')
+        - $(cat CHANGELOG.md | perl -0777 -ne 'print "$1\n" if /.*## \[$ENV{TRAVIS_TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s') > release_body.md
       deploy:
         on:
           all_branches: true
@@ -52,5 +52,5 @@ jobs:
         provider: releases
         api_key: "$GH_TOKEN"
         file: ./ignore/*
-        release_notes: "$RELEASE_BODY"
+        release_notes_file: release_body.md
         skip_cleanup: true

@@ -30,10 +30,12 @@ jobs:
         - make it
     - stage: tag
       name: "Tag For Release"
+      before_script:
+        - echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
       script:
         - export OLD_VERSION=$(make version)
-        - git config --global user.name "travis-ci"
-        - git config --global user.email "builds@travis-ci.com"
+        - git config --global user.name "kcajmagic"
+        - git config --global user.email "jackrmurdock@gmail.com"
         - export TAG=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
         - echo "$TAG"
         - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag "$TAG"; git push origin "$TAG"; echo $?; fi

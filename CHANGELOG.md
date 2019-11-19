@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.3]
+- trying to get copr to work
+- made my own repo to fiddle with repo webhook settings
+
 ## [v0.4.2]
 - updated tag to include release notes information
 - not sure about markdown in the tag message
@@ -35,7 +39,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.3...HEAD
+[v0.4.3]: https://github.com/kcajmagic/testing/compare/v0.4.2...v0.4.3
 [v0.4.2]: https://github.com/kcajmagic/testing/compare/v0.4.1...v0.4.2
 [v0.4.1]: https://github.com/kcajmagic/testing/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/kcajmagic/testing/compare/v0.3.3...v0.4.0

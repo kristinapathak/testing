@@ -34,8 +34,8 @@ jobs:
         - echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
       script:
         - export OLD_VERSION=$(make version)
-        - git config --global user.name "kcajmagic"
-        - git config --global user.email "jackrmurdock@gmail.com"
+        - git config --global user.name "kristinaspring"
+        - git config --global user.email "kmspring57@gmail.com"
         - export TAG=$(cat CHANGELOG.md | perl -0777 -ne 'print "$1" if /.*## \[Unreleased\]\s+## \[(v\d+.\d+.\d+)\].*/s')
         - export TODAY=`date +'%m/%d/%Y'`
         - export NOTES=$(cat CHANGELOG.md | perl -0777 -ne 'print "$ENV{TODAY}\n\n$1\n" if /.*## \[$ENV{TAG}\]\s(.*?)\s+## \[(v\d+.\d+.\d+)\].*/s')

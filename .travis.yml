@@ -10,11 +10,6 @@ os:
 services:
   - docker
 
-matrix:
-  allow_failures:
-    - go: tip
-  fast_finish: true
-
 branches:
   only:
     - master

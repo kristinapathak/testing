@@ -1,8 +1,9 @@
 %define AutoReqProv: no
 %define __os_install_post %{nil}
+%define _version %{../../make version}
 
 Name:       {{{ git_dir_name }}}
-Version:    {{{ git_dir_version }}}
+Version:    %{_version}
 Release:    1%{?dist}
 Summary:    testing ignore me
 
@@ -22,7 +23,7 @@ BuildRequires: golang >= 1.11
 Testing ignorem me
 
 %build
-GO111MODULE=on go build -ldflags "-X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit=`git rev-parse --short HEAD` -X main.Version=%{version}" -o $RPM_SOURCE_DIR/%{name} %{_topdir}/..
+GO111MODULE=on go build -ldflags "-X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit=`git log -1 --pretty=format:%h` -X main.Version=%{version}" -o $RPM_SOURCE_DIR/%{name} %{_topdir}/..
 
 %install
 echo rm -rf %{buildroot}

@@ -11,7 +11,7 @@ Packager:   Comcast
 Group:      System Environment/Daemons
 License:    ASL 2.0
 URL:        https://github.com/kcajmagic/testing
-Source0:    %{name}-%{version}-%{release}.tar.gz
+Source0:    %{name}-%{version}.tar.gz
 
 Prefix:     /opt
 BuildRoot:  %{_tmppath}/%{name}

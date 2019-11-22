@@ -1,9 +1,8 @@
 %define AutoReqProv: no
 %define __os_install_post %{nil}
-%define _version %{../../make version}
 
 Name:       {{{ git_dir_name }}}
-Version:    %{_version}
+Version:    {{{ git_dir_version }}}
 Release:    1%{?dist}
 Summary:    testing ignore me
 

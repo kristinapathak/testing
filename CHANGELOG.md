@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.6]
+- took out make command
+
 ## [v0.4.5]
 - fixed spec to not call git command
 
@@ -45,7 +48,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.5...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.6...HEAD
+[v0.4.6]: https://github.com/kcajmagic/testing/compare/v0.4.5...v0.4.6
 [v0.4.5]: https://github.com/kcajmagic/testing/compare/v0.4.4...v0.4.5
 [v0.4.4]: https://github.com/kcajmagic/testing/compare/v0.4.3...v0.4.4
 [v0.4.3]: https://github.com/kcajmagic/testing/compare/v0.4.2...v0.4.3

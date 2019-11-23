@@ -22,7 +22,7 @@ BuildRequires: golang >= 1.11
 Testing ignorem me
 
 %build
-GO111MODULE=on go build -ldflags "-X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_dir_version }}} -X main.Version=%{version}" -o $RPM_SOURCE_DIR/%{name} %{_topdir}/..
+GO111MODULE=on go build -ldflags "-X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_dir_version }}} -X main.Version=%{version}" -o %{name} .
 
 %install
 echo rm -rf %{buildroot}
@@ -33,13 +33,13 @@ echo rm -rf %{buildroot}
 %{__install} -d %{buildroot}%{_localstatedir}/run/%{name}
 %{__install} -d %{buildroot}%{_unitdir}
 
-%{__install} -p $RPM_SOURCE_DIR/%{name} %{buildroot}%{_bindir}
-%{__install} -p $RPM_SOURCE_DIR/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
-%{__install} -p $RPM_SOURCE_DIR/%{name}.yaml %{buildroot}%{_sysconfdir}/%{name}/%{name}.yaml
+%{__install} -p %{name} %{buildroot}%{_bindir}
+%{__install} -p conf/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
+%{__install} -p %{name}.yaml %{buildroot}%{_sysconfdir}/%{name}/%{name}.yaml
 
 %files
 %defattr(644, root, root, 755)
-%doc $RPM_SOURCE_DIR/CHANGELOG.md
+%doc CHANGELOG.md
 
 %attr(755, root, root) %{_bindir}/%{name}
 

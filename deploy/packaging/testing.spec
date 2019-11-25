@@ -17,6 +17,7 @@ Prefix:     /opt
 BuildRoot:  %{_tmppath}/%{name}
 BuildRequires: systemd
 BuildRequires: golang >= 1.11
+BuildRequires: git
 
 %description
 Testing ignorem me

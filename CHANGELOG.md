@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.9]
+- updated spec to set name
+
 ## [v0.4.8]
 - updated spec based on testing with Wes
 - hardcoded name since we're not getting the result we want
@@ -55,7 +58,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.8...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.9...HEAD
+[v0.4.9]: https://github.com/kcajmagic/testing/compare/v0.4.8...v0.4.9
 [v0.4.8]: https://github.com/kcajmagic/testing/compare/v0.4.7...v0.4.8
 [v0.4.7]: https://github.com/kcajmagic/testing/compare/v0.4.6...v0.4.7
 [v0.4.6]: https://github.com/kcajmagic/testing/compare/v0.4.5...v0.4.6

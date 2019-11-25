@@ -1,5 +1,6 @@
 %define AutoReqProv: no
 %define __os_install_post %{nil}
+%define trash {{{ git_dir_name }}}
 
 Name:       testing
 Version:    {{{ git_dir_version }}}

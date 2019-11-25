@@ -26,7 +26,7 @@ Testing ignorem me
 %setup -q
 
 %build
-GO111MODULE=on go build -ldflags "-linkmode=external -X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_dir_version }}} -X main.Version=%{version}" -o %{name} .
+GO111MODULE=on GOPROXY=https://proxy.golang.org go build -ldflags "-linkmode=external -X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_dir_version }}} -X main.Version=%{version}" -o %{name} .
 
 %install
 echo rm -rf %{buildroot}

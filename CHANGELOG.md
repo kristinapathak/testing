@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.12]
+- added go proxy
+
 ## [v0.4.11]
 - added git requirement
 
@@ -64,7 +67,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.11...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.12...HEAD
+[v0.4.12]: https://github.com/kcajmagic/testing/compare/v0.4.11...v0.4.12
 [v0.4.11]: https://github.com/kcajmagic/testing/compare/v0.4.10...v0.4.11
 [v0.4.10]: https://github.com/kcajmagic/testing/compare/v0.4.9...v0.4.10
 [v0.4.9]: https://github.com/kcajmagic/testing/compare/v0.4.8...v0.4.9

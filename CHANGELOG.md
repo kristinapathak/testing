@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.8]
+- updated spec based on testing with Wes
+- hardcoded name since we're not getting the result we want
+
 ## [v0.4.7]
 - remove dist from tar file
 
@@ -51,7 +55,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.7...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.8...HEAD
+[v0.4.8]: https://github.com/kcajmagic/testing/compare/v0.4.7...v0.4.8
 [v0.4.7]: https://github.com/kcajmagic/testing/compare/v0.4.6...v0.4.7
 [v0.4.6]: https://github.com/kcajmagic/testing/compare/v0.4.5...v0.4.6
 [v0.4.5]: https://github.com/kcajmagic/testing/compare/v0.4.4...v0.4.5

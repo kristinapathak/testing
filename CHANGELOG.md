@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.10]
+- more spec changes in a small hope to successfully create an rpm using copr
+
 ## [v0.4.9]
 - updated spec to set name
 
@@ -58,7 +61,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.9...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.10...HEAD
+[v0.4.10]: https://github.com/kcajmagic/testing/compare/v0.4.9...v0.4.10
 [v0.4.9]: https://github.com/kcajmagic/testing/compare/v0.4.8...v0.4.9
 [v0.4.8]: https://github.com/kcajmagic/testing/compare/v0.4.7...v0.4.8
 [v0.4.7]: https://github.com/kcajmagic/testing/compare/v0.4.6...v0.4.7

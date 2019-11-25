@@ -1,4 +1,3 @@
-%define AutoReqProv: no
 %define __os_install_post %{nil}
 %define trash {{{ git_dir_name }}}
 
@@ -22,8 +21,11 @@ BuildRequires: golang >= 1.11
 %description
 Testing ignorem me
 
+%prep
+%setup -q
+
 %build
-GO111MODULE=on go build -ldflags "-X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_dir_version }}} -X main.Version=%{version}" -o %{name} .
+GO111MODULE=on go build -ldflags "-linkmode=external -X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_dir_version }}} -X main.Version=%{version}" -o %{name} .
 
 %install
 echo rm -rf %{buildroot}

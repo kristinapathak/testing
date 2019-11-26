@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.5.0]
+- trying to just trigger one copr build
+
 ## [v0.4.17]
 - Fix git version macro
 
@@ -83,7 +86,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.17...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.5.0...HEAD
+[v0.5.0]: https://github.com/kcajmagic/testing/compare/v0.4.17...v0.5.0
 [v0.4.17]: https://github.com/kcajmagic/testing/compare/v0.4.16...v0.4.17
 [v0.4.16]: https://github.com/kcajmagic/testing/compare/v0.4.15...v0.4.16
 [v0.4.15]: https://github.com/kcajmagic/testing/compare/v0.4.14...v0.4.15

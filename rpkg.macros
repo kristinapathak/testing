@@ -12,7 +12,7 @@ function git_tag_version {
     tag="$(cached git_tag_version)"
 
     if [ -z "$tag" ]; then
-        tag="$(git rev-parse --abbrev-ref HEAD)"
+        tag="$(git describe --tags --abbrev=0)"
     fi
 
     output "$tag"

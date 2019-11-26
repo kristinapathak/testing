@@ -15,16 +15,24 @@ branches:
     - master
     - /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
 
-script:
-  - make style codecov
 jobs:
   include:
+    - stage: build
+      name: "make with unit tests"
+      if: branch = master
+      go: 
+        - 1.13.x
+        - tip
+      script:
+        - make style codecov
     - stage: integration
       name: "Integration Tests"
+      if: branch = master
       script:
         - make it
     - stage: tag
       name: "Tag For Release"
+      if: branch = master
       before_script:
         - echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
       script:
@@ -37,6 +45,7 @@ jobs:
         - if [[ "$TAG" != "" && "$TAG" != "$OLD_VERSION" ]]; then git tag -a "$TAG" -m "$NOTES"; git push origin --tags; echo $?; fi
     - stage: release
       name: "Make a Release"
+      if: branch != master
       script: skip
       before_deploy:
         - make release-artifacts

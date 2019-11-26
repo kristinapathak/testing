@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.4.15]
+- Added my own macros
+
 ## [v0.4.14]
 - cleaned up travis to only run tests on specific branches
 - trying something in copr, let's see if it works.
@@ -74,7 +77,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [v0.1.5]
 - Stuff
 
-[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.14...HEAD
+[Unreleased]: https://github.com/kcajmagic/testing/compare/v0.4.15...HEAD
+[v0.4.15]: https://github.com/kcajmagic/testing/compare/v0.4.14...v0.4.15
 [v0.4.14]: https://github.com/kcajmagic/testing/compare/v0.4.13...v0.4.14
 [v0.4.13]: https://github.com/kcajmagic/testing/compare/v0.4.12...v0.4.13
 [v0.4.12]: https://github.com/kcajmagic/testing/compare/v0.4.11...v0.4.12

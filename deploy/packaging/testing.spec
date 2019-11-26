@@ -1,9 +1,8 @@
 %define __os_install_post %{nil}
 %define debug_package %{nil}
-%define _version %(git rev-parse --abbrev-ref HEAD)
 
 Name:       testing
-Version:    %{_version}
+Version:    {{{ git_tag_version }}}
 Release:    1%{?dist}
 Summary:    testing ignore me
 
@@ -27,7 +26,7 @@ Testing ignorem me
 %setup -q
 
 %build
-GO111MODULE=on GOPROXY=https://proxy.golang.org go build -ldflags "-linkmode=external -X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit=`git rev-parse --short HEAD` -X main.Version=%{version}" -o %{name} .
+GO111MODULE=on GOPROXY=https://proxy.golang.org go build -ldflags "-linkmode=external -X 'main.BuildTime=`date -u '+%Y-%m-%d %H:%M:%S'`' -X main.GitCommit={{{ git_short_hash }}} -X main.Version=%{version}" -o %{name} .
 
 %install
 echo rm -rf %{buildroot}

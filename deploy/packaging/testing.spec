@@ -1,5 +1,6 @@
 %define __os_install_post %{nil}
 %define trash {{{ git_dir_name }}}
+%define debug_package %{nil}
 
 Name:       testing
 Version:    {{{ git_dir_version }}}
